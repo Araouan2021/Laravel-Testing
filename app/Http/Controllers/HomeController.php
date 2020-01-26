@@ -6,23 +6,23 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    use RefreshDatabase;
-
-    /** @test */
-    public function index_returns_a_view()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->actingAs($user)->get(route('home'));
-
-        $response->assertStatus(200);
+        $this->middleware('auth');
     }
 
-    /** @test */
-    public function index_redirects_when_unauthorized()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
-        $response = $this->get(route('home'));
-
-        $response->assertStatus(302);
+        return view('home');
     }
 }
