@@ -34,9 +34,9 @@ class LoginControllerTest extends TestCase
         $user = factory(User::class)->create();
 
         $response = $this->post(route('login'), [
-        'email' => $user->email,
-        'password' => 'password'
-        ];
+            'email' => $user->email,
+            'password' => 'password'
+        ]);
 
         $response->assertRedirect(route('home'));
         $this->assertAuthenticatedAs($user);
